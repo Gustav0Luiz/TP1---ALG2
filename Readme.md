@@ -1,6 +1,6 @@
-### Trabalho 1 ALG 2
+### Trabalho Prático 1 - Disciplina de Algoritmos 2
 
-- O objetivo do trabalho é  a implementação de árvores k-dimensionais para realização de busca ortogonal em conjuntos de pontos.
+- O objetivo do trabalho é a implementação de árvores k-dimensionais para realização de busca ortogonal em conjuntos de pontos.
 
 #### O que deve ser feito?
 
@@ -32,7 +32,6 @@ efetivamente interativo, permitindo definir e ajustar um endereço e o tamanho d
 #### Dados utilizados:
 
 - Os dados foram disponibilizados no arquivo butecos_bh.csv, entretanto apenas recebemos o endereço (rua, bairro número etc). Precisamos utilizar a API do OpenStreetMaps para converter os endereços em coordenadas geográficas exatas (talvez salvar as coordenadas de todos os bares de uma vez, ao invés de toda hora fazer requisições).
-
 
 
 #### Pontos Extra:
