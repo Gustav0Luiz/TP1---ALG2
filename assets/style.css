@@ -1,6 +1,14 @@
+@font-face {
+    font-family: 'Beagle Brigade';
+    src: url('fonts/BeagleBrigadeAU.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
 body {
     margin: 0;
-    font-family: Inter, Arial, sans-serif;
+    font-family: 'Beagle Brigade', Arial, sans-serif;
 }
 
 .pagina {
@@ -8,10 +16,12 @@ body {
 }
 
 .titulo {
-    font-family: Ubuntu, sans-serif;
+    font-family: 'Beagle Brigade', Arial, sans-serif;
     text-align: center;
-    color: #34495e;
+    color: #fc802d;
     margin-bottom: 22px;
+    font-size: 42px;
+    font-weight: normal;
 }
 
 .container-controles {
@@ -79,8 +89,8 @@ body {
     padding: 0 22px;
     border-radius: 14px;
     border: none;
-    background-color: #1f2937;
-    color: #ffffff;
+    background-color: #fc802d;
+    color: black;
     font-size: 14px;
     font-weight: 700;
     cursor: pointer;
@@ -90,7 +100,7 @@ body {
 }
 
 .botao-buscar:hover {
-    background-color: #111827;
+    background-color: #fc802dd6;
 }
 
 .container-mapa {
