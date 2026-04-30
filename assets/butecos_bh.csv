@@ -1,4 +1,4 @@
-name,address
+name,street,number,district,city_state,zip_code
 222,R. Francisco Deslandes,222,,Belo Horizonte - MG,30310-530
 Alexandre’s Bar,R. David Alves do Vale,68 ,Santa Rosa,Belo Horizonte - MG,31255-630
 Andrade’s Beer,R. Dona Geni,32,Maria Helena,Belo Horizonte - MG,31680-100
@@ -27,7 +27,7 @@ Bar do Regis,R. Gávea,422,Jardim América,Belo Horizonte - MG,30421-340
 Bar do Tião,Avenida Doutor Cristiano Guimarães,2570,Planalto,Belo Horizonte - MG,31741-161
 Bar dos Meninos,Rua Lindolfo Deodoro,503 - A,Salgado Filho,Belo Horizonte - MG,30550-006
 Bar Du Du,R. Vinte e Oito de Setembro,229,Esplanada,Belo Horizonte - MG,30280-230
-Bar Du Magrelo,Rua São Felipe,21 ,,Belo Horizonte - MG, 31030-290
+Bar Du Magrelo,Rua São Felipe,21 ,,Belo Horizonte - MG,31030-290
 Bar e Restaurante Bom Sabor,R. Java,386 ,Nova Suíça,Belo Horizonte - MG,30421-228
 Bar e Restaurante do Branco,Rua Pitangui,3197,,Belo Horizonte - MG,31030-211
 Bar Estabelecimento,R. Monte Alegre,160,Serra,Belo Horizonte - MG,30240-230
@@ -42,7 +42,7 @@ Bazin Bar,R. Min. Orozimbo Nonato,1053,Dona Clara,Belo Horizonte - MG,31260-155
 Beco Restaurante,R. dos Tamoios,232,Centro,Belo Horizonte - MG,30120-050
 Bella Bar e Restaurante,Rua dos Odontólogos,422 ,,Belo Horizonte - MG,30840-200
 Boi Major,R. Major Lopes,7,São Pedro,Belo Horizonte - MG,30330-050
-Boteco 86,R. Jacarina,86,Padre Eustáquio,Belo Horizonte - MG, 30720-180
+Boteco 86,R. Jacarina,86,Padre Eustáquio,Belo Horizonte - MG,30720-180
 Botequim Buritis,Rua Vitório Magnavacca,39,Buritis,Belo Horizonte - MG,30455-730
 Buteco do Lili,R. Líbero Badaró,493,Dona Clara,Belo Horizonte - MG,31255-620
 Buteco Tô D’Boa,Av. Virgílio de Melo Franco,400,Jardim Atlântico,Belo Horizonte - MG,31555-120
@@ -69,7 +69,7 @@ Dona Suica,Av. João Samaha,390,São João Batista (Venda Nova),Belo Horizonte -
 Empório Laís,Rua Olavo Andrade,195,,Belo Horizonte - MG,31130-270
 Espetinho do Boi,R. São Paulo da Cruz,357,Barreiro,Belo Horizonte - MG,30642-060
 Espetinho do Tilias,Praça Manoel Batista Baía,235 ,,Belo Horizonte - MG,31660-190
-Espetinho Rei e Família,Av. Guarapari,1281,, Belo Horizonte - MG,31560-300
+Espetinho Rei e Família,Av. Guarapari,1281,,Belo Horizonte - MG,31560-300
 Espetinho São Pedro QUIÓ,Rua Cristina,870,,Belo Horizonte - MG,30330-130
 Espettinho.com,R. Eli Seabra Filho,510,Buritis,Belo Horizonte - MG,30575-740
 Galpão Flor do Campo,Rua Coronel Otávio Diniz,449,,Belo Horizonte - MG,30270-360
@@ -101,7 +101,7 @@ Pé de Goiaba,Av. Amazonas,4676 ,Nova Suíça,Belo Horizonte - MG,30421-026
 Planeta Lúpulo,Av. Guarapari,108,Santa Amélia,Belo Horizonte - MG,31560-300
 PoiZé Bar e Petisqueira,R. Pium-I,686 ,Cruzeiro,Belo Horizonte - MG,30310-080
 Prado Beer,Av. Francisco Sá,590,Prado,Belo Horizonte - MG,30441-018
-Queremos Frango,Avenida Joaquim Clemente,730,, Belo Horizonte - MG,31840-340
+Queremos Frango,Avenida Joaquim Clemente,730,,Belo Horizonte - MG,31840-340
 Quintal do Louzada,Rua Gávea,358 ,,Belo Horizonte - MG,30421-340
 Quioxque Botequim Carioca,Rua Henrique Badaró Portugal,157,Buritis,Belo Horizonte - MG,30575-232
 Quitandas da Tia Nice Bar,R. Alabastro,146 ,Horto,Belo Horizonte - MG,31030-080
