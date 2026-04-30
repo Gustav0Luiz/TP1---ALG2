@@ -5,7 +5,7 @@ from pathlib import Path
 import csv
 
 PROJECT_ROOT = Path(__file__).parent.parent
-CSV_PATH = PROJECT_ROOT / 'assets' / 'butecos_bh.csv'
+CSV_PATH = PROJECT_ROOT / 'data' / 'butecos_bh.csv'
 district_idx = 3
 
 with open(CSV_PATH, "r", encoding='utf-8') as infile:
