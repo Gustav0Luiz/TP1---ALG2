@@ -22,7 +22,7 @@ def load_existing_coords():
     return pd.DataFrame(columns=HEADER)
 
 
-def build_query_variants(row):
+def _build_query_variants(row):
     street = row["street"]
     number = row.get("number", "")
     zip_code = row["zip_code"]
@@ -37,7 +37,7 @@ def build_query_variants(row):
     ]
 
 
-def struct_osm(name, result):
+def _struct_osm(name, result):
     address = result.raw.get("address", {})
     return {
         "name": name,
@@ -51,40 +51,33 @@ def struct_osm(name, result):
     }
 
 
-def fetch_missing(df_missing):
-    geolocator = Nominatim(user_agent="TP1-ALG2")
-    rows = []
-    not_found = []
-    for _, row in df_missing.iterrows():
-        result = None
-        matched_query = None
-        for query in build_query_variants(row):
-            result = geolocator.geocode(query, addressdetails=True, timeout=10)
-            time.sleep(1)
-            if result:
-                matched_query = query
-                break
+def fetch_osm(row, geolocator: Nominatim):
+    result = None
+    matched_query = None
+    for query in _build_query_variants(row):
+        result = geolocator.geocode(query, addressdetails=True, timeout=10)
+        time.sleep(1)
         if result:
-            structured = struct_osm(row["name"], result)
-            print(f"Coordenada encontrada para '{matched_query['street']}' -> {structured['latitude']}, {structured['longitude']}")
-        else:
-            structured = {
-                "name": row["name"],
-                "street": row["street"],
-                "number": row.get("number"),
-                "district": row.get("district"),
-                "city_state": row.get("city_state"),
-                "zip_code": row["zip_code"],
-                "latitude": None,
-                "longitude": None,
-            }
-            not_found.append(row["name"])
-            print(f"Coordenada para '{row['name']}' não encontrada.")
-        rows.append(structured)
-    return pd.DataFrame(rows, columns=HEADER), not_found
+            matched_query = query
+            break
+    if result:
+        structured = _struct_osm(row["name"], result)
+        print(f"Coordenada encontrada para '{matched_query['street']}' -> {structured['latitude']}, {structured['longitude']}")
+    else:
+        structured = {
+            "name": row["name"],
+            "street": row["street"],
+            "number": row.get("number"),
+            "district": row.get("district"),
+            "city_state": row.get("city_state"),
+            "zip_code": row["zip_code"],
+            "latitude": None,
+            "longitude": None,
+        }
+        print(f"Coordenada para '{row['name']}' não encontrada.")
+    return structured
 
-
-def main():
+if __name__ == "__main__":
     df_source = pd.read_csv(ADDRESS_PATH, dtype=str)
     df_existing = load_existing_coords()
 
@@ -96,8 +89,11 @@ def main():
         print("Todas as coordenadas já foram encontradas.")
     else:
         print(f"Procurando coordenadas de {len(df_missing)} endereços:")
-        df_new, not_found_list = fetch_missing(df_missing)
-        df_existing = pd.concat([df_existing, df_new], ignore_index=True)
+        geolocator = Nominatim(user_agent="TP1_ALG2")
+        rows_new = []
+        for row in df_missing.iterrows():
+            rows_new.append(fetch_osm(row, geolocator))
+        df_existing = pd.concat([df_existing] + rows_new, ignore_index=True)
 
     # Preservar ordem original do arquivo de origem
     df_out = df_source[["name"]].merge(df_existing, on="name", how="left")
@@ -107,6 +103,3 @@ def main():
         print(f"Endereços não encontrados ({len(not_found_list)}):")
         for address in not_found_list:
             print(address)
-
-if __name__ == "__main__":
-    main()
