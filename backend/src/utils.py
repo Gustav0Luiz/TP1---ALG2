@@ -1,17 +1,24 @@
 import math
 
-def calcular_limites_retangulo(lat_centro, lon_centro, distancia_km):
-	# 1 grau de latitude equivale a aproximadamente 111.32 km
-	delta_lat = distancia_km / 111.32
+def calcular_limites_retangulo(lat_centro, lon_centro, diagonal_km):
+    """
+    Calcula os limites do retângulo a partir da diagonal informada.
 
-	# 1 grau de longitude varia conforme a latitude - vide formula:
-	delta_lon = distancia_km / (111.32 * math.cos(math.radians(lat_centro)))
+    O retângulo é tratado como um quadrado centralizado no endereço.
+    """
 
-	bounds = (
-		(lat_centro - delta_lat, lon_centro - delta_lon),  # canto inferior esquerdo
-		(lat_centro + delta_lat, lon_centro + delta_lon)   # canto superior direito
-	)
-	return bounds
+    lado_km = diagonal_km / math.sqrt(2)
+    meio_lado_km = lado_km / 2
+
+    delta_lat = meio_lado_km / 111.32
+    delta_lon = meio_lado_km / (111.32 * math.cos(math.radians(lat_centro)))
+
+    bounds = (
+        (lat_centro - delta_lat, lon_centro - delta_lon),
+        (lat_centro + delta_lat, lon_centro + delta_lon)
+    )
+
+    return bounds
 
 def estimar_raio_graus(lat_centro, distancia_km):
 	delta_lat = distancia_km / 111.32

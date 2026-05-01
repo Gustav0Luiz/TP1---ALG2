@@ -5,7 +5,6 @@
     font-style: normal;
 }
 
-
 body {
     margin: 0;
     font-family: 'Beagle Brigade', Arial, sans-serif;
@@ -23,6 +22,8 @@ body {
     font-size: 42px;
     font-weight: normal;
 }
+
+/* -------------------- CONTROLES SUPERIORES -------------------- */
 
 .container-controles {
     display: flex;
@@ -44,14 +45,38 @@ body {
     height: 48px;
     padding: 0 16px;
     border-radius: 14px;
-    border: 1px solid #d1d5db;
+    border: 1px solid #fc802d !important;
     font-size: 15px;
-    outline: none;
+    outline: none !important;
     box-sizing: border-box;
     background-color: #ffffff;
     color: #111827;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08) !important;
     font-family: Inter, Arial, sans-serif;
+}
+
+.input-busca:focus,
+.input-busca:focus-visible,
+.input-busca:focus-within {
+    outline: none !important;
+    border: 1px solid #fc802d !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08) !important;
+}
+
+.input-busca .dash-input-element {
+    outline: none !important;
+    border: none !important;
+    box-shadow: none !important;
+    background: transparent !important;
+    font-family: Inter, Arial, sans-serif;
+    color: #111827;
+}
+
+.input-busca .dash-input-element:focus,
+.input-busca .dash-input-element:focus-visible {
+    outline: none !important;
+    border: none !important;
+    box-shadow: none !important;
 }
 
 .container-raio {
@@ -73,15 +98,46 @@ body {
     height: 48px;
     padding: 0;
     border-radius: 14px;
-    border: 1px solid #d1d5db;
+    border: 1px solid #fc802d !important;
     font-size: 15px;
-    outline: none;
+    outline: none !important;
     box-sizing: border-box;
     background-color: #ffffff;
     color: #111827;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08) !important;
     font-family: Inter, Arial, sans-serif;
     text-align: center;
+}
+
+.input-raio:focus,
+.input-raio:focus-visible,
+.input-raio:focus-within {
+    outline: none !important;
+    border: 1px solid #fc802d !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08) !important;
+}
+
+.input-raio .dash-input-element {
+    outline: none !important;
+    border: none !important;
+    box-shadow: none !important;
+    background: transparent !important;
+    font-family: Inter, Arial, sans-serif;
+    color: #111827;
+    text-align: center;
+}
+
+.input-raio .dash-input-element:focus,
+.input-raio .dash-input-element:focus-visible {
+    outline: none !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+.input-raio .dash-input-stepper {
+    border: none !important;
+    background: transparent !important;
+    color: #34495e;
 }
 
 .botao-buscar {
@@ -102,6 +158,158 @@ body {
 .botao-buscar:hover {
     background-color: #fc802dd6;
 }
+.botao-limpar {
+    height: 48px;
+    padding: 0 18px;
+    border-radius: 14px;
+    border: 1px solid #fc802d;
+    background-color: #ffffff;
+    color: #fc802d;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(31, 41, 55, 0.12);
+    font-family: Inter, Arial, sans-serif;
+    white-space: nowrap;
+}
+
+.botao-limpar:hover {
+    background-color: #fff7ed;
+}
+
+
+/* -------------------- TOGGLE RETÂNGULO / CÍRCULO -------------------- */
+
+.container-toggle {
+    display: flex;
+    align-items: center;
+    height: 48px;
+    margin-left: 8px;
+}
+
+.toggle-slider {
+    position: relative;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center;
+    width: 170px;
+    height: 42px;
+    padding: 4px;
+    border-radius: 14px;
+    background-color: #ffffff;
+    border: 1px solid #fc802d;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    font-family: Inter, Arial, sans-serif;
+    box-sizing: border-box;
+}
+
+.toggle-slider .dash-options-list-option {
+    position: relative;
+    z-index: 2;
+    width: 50%;
+    height: 32px;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    margin: 0 !important;
+    padding: 0 !important;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 700;
+    color: #34495e;
+    border: none !important;
+    outline: none !important;
+    background: transparent;
+    box-shadow: none !important;
+    border-radius: 10px;
+    transition: all 0.25s ease;
+}
+
+.toggle-slider input[type="radio"],
+.toggle-slider .dash-options-list-option-checkbox {
+    display: none !important;
+}
+
+.toggle-slider .dash-options-list-option-text {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.toggle-slider .dash-options-list-option.selected {
+    background-color: #fc802d !important;
+    color: #000000 !important;
+}
+
+.toggle-slider,
+.toggle-slider *,
+.toggle-slider *:focus,
+.toggle-slider *:focus-visible,
+.toggle-slider *:active {
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+.toggle-slider {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08) !important;
+}
+
+/* -------------------- TOOLTIP DO TOGGLE -------------------- */
+
+.opcao-toggle-com-tooltip {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.tooltip-opcao {
+    position: absolute;
+    bottom: calc(100% + 22px);
+    top: auto;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 230px;
+    padding: 9px 11px;
+    border-radius: 10px;
+    background-color: #ffffff;
+    color: #34495e;
+    border: 1px solid #fc802d;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.14);
+    font-family: Inter, Arial, sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.35;
+    text-align: center;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    z-index: 9999;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.opcao-toggle-com-tooltip:hover .tooltip-opcao {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(-2px);
+}
+
+.tooltip-opcao::before {
+    content: "";
+    position: absolute;
+    bottom: -7px;
+    top: auto;
+    left: 50%;
+    width: 12px;
+    height: 12px;
+    background-color: #ffffff;
+    border-right: 1px solid #fc802d;
+    border-bottom: 1px solid #fc802d;
+    transform: translateX(-50%) rotate(45deg);
+}
+
+/* -------------------- MAPA -------------------- */
 
 .container-mapa {
     height: 75vh;
@@ -119,10 +327,85 @@ body {
     overflow: hidden;
 }
 
+/* -------------------- BOTÕES DO MAPA / EASYBUTTON -------------------- */
+
+/* Reduz o espaçamento vertical entre os controles do Leaflet */
+.leaflet-top .leaflet-control {
+    margin-bottom: 2px !important;
+}
+
+/* Aproxima especificamente os EasyButtons */
+.leaflet-control.easy-button-container {
+    margin-bottom: 2px !important;
+    margin-top: 0 !important;
+}
+
+/* Remove espaçamentos extras do container do EasyButton */
+.easy-button-container {
+    padding: 0 !important;
+}
+
+/* Botão interno do EasyButton */
+.easy-button-button {
+    width: 30px !important;
+    height: 30px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 0 !important;
+    line-height: normal !important;
+}
+
+/* Span interno criado pelo EasyButton */
+.easy-button-button .button-state {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 100% !important;
+    height: 100% !important;
+    line-height: normal !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* Ícone do botão de satélite/camadas */
+.icone-controle-mapa {
+    width: 22px;
+    height: 22px;
+    object-fit: contain;
+    display: block;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* Ícone do botão de bairros */
+.icone-bairros {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+    display: block;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* -------------------- TABELA -------------------- */
+
 .container-tabela {
     width: 90%;
     margin: 20px auto;
 }
+
+.titulo-tabela {
+    width: 90%;
+    margin: 24px auto 12px auto;
+    font-family: 'Beagle Brigade', Arial, sans-serif;
+    font-size: 30px;
+    font-weight: normal;
+    color: #fc802d;
+    text-align: center;
+}
+
+/* -------------------- POPUPS -------------------- */
 
 .popup-title {
     font-size: 14px;

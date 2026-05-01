@@ -144,30 +144,46 @@ class AddressSearcher:
 		center_coords = self._get_center_coords(center_address)
 		candidate_coords = self._get_candidates(center_coords, distance_km, use_circle)
 
-		return self._format_results(candidate_coords, center_coords)#, distance_km, use_circle)
+		## modificado para retornar a coordenada central, para nao ter que calcular novamente no front
+		results = self._format_results(candidate_coords, center_coords)
+
+		return {"center": center_coords,"results": results}
+				
+				
+			
 
 if __name__ == "__main__":
     searcher = AddressSearcher()
 
     test_address = "Praça da Liberdade"
-    test_distance = 2.0 # km
+    test_distance = 2.0  # km
 
-    rect_results = searcher.search_addresses(
+    rect_response = searcher.search_addresses(
         center_address=test_address,
         distance_km=test_distance,
         use_circle=False
     )
-    
-    print("Rect search: ")
-    for rect in rect_results:
-        print(rect['name'], f"{rect['distance_km']:.2f}km", sep=": ")
 
-    circle_results = searcher.search_addresses(
+    rect_center = rect_response["center"]
+    rect_results = rect_response["results"]
+
+    print("Rect search:")
+    print(f"Center: {rect_center}")
+
+    for rect in rect_results:
+        print(rect["name"], f"{rect['distance_km']:.2f}km", sep=": ")
+
+    circle_response = searcher.search_addresses(
         center_address=test_address,
         distance_km=test_distance,
         use_circle=True
     )
-    
-    print(f"\nCircle search: ")
+
+    circle_center = circle_response["center"]
+    circle_results = circle_response["results"]
+
+    print("\nCircle search:")
+    print(f"Center: {circle_center}")
+
     for circle in circle_results:
-        print(circle['name'], f"{circle['distance_km']:.2f}km", sep=": ")
+        print(circle["name"], f"{circle['distance_km']:.2f}km", sep=": ")
