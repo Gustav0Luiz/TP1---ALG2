@@ -146,7 +146,7 @@ app.layout = html.Div([
                 type="number",
                 placeholder="Alcance",
                 min=0.1,
-                step=0.1,
+                step=0.01,
                 className="input-raio"
             )
         ], className="container-raio"),

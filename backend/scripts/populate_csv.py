@@ -1,8 +1,12 @@
 import pandas as pd
 from pandas.errors import EmptyDataError
 
-from ..src.config import ADDRESS_PATH, COORDS_PATH, CSV_HEADER
-from ..src.osm import OSMFetcher
+from pathlib import Path
+import sys
+sys.path.append(str(Path(__file__).parent.parent))
+
+from src.config import ADDRESS_PATH, COORDS_PATH, CSV_HEADER
+from src.osm import OSMFetcher
 
 def load_existing_coords():
     if COORDS_PATH.exists():
@@ -25,8 +29,13 @@ if df_missing.empty:
 else:
     print(f"Procurando coordenadas de {len(df_missing)} endereços:")
     osm_fetcher = OSMFetcher()
-    df_new = pd.DataFrame([osm_fetcher.fetch(row) for _, row in df_missing.iterrows()])
-    df_existing = pd.concat([df_existing, df_new], ignore_index=True)
+    # df_new = pd.DataFrame([osm_fetcher.fetch(row) for _, row in df_missing.iterrows()])
+    df_coords_new = pd.DataFrame([osm_fetcher.fetch(row, coords_only=True) for _, row in df_missing.iterrows()])
+    df_existing = pd.concat([df_existing, df_coords_new], ignore_index=True)
 
-df_out = df_source[["name"]].merge(df_existing, on="name", how="left")
+df_out = df_source.merge(
+    df_existing[["name", "latitude", "longitude"]], 
+    on="name", 
+    how="left"
+)
 df_out.to_csv(COORDS_PATH, index=False)

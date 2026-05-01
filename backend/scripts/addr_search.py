@@ -114,15 +114,15 @@ class AddressSearcher:
 
 		return {tuple(p) for p in points}
 
-	def _format_results(self, candidate_coords: set[tuple], center_coords: tuple):#, distance_km: float, use_circle: bool) -> list[dict]:
+	def _format_results(self, candidate_coords: set[tuple], center_coords: tuple, distance_km: float, use_circle: bool) -> list[dict]:
 		results = []
 
 		for coord in candidate_coords:
 			dist = calcular_distancia_km(center_coords, coord)
 
-			# # Filter out points beyond the radius if circular search is enabled
-			# if use_circle and dist > distance_km:
-			# 	continue
+			# Filtrar pontos fora do círculo (falha por imprecisão)
+			if use_circle and dist > distance_km:
+				continue
 
 			# Listar os dados
 			for record in self._coord_index.get(coord, []):
@@ -145,7 +145,7 @@ class AddressSearcher:
 		candidate_coords = self._get_candidates(center_coords, distance_km, use_circle)
 
 		## modificado para retornar a coordenada central, para nao ter que calcular novamente no front
-		results = self._format_results(candidate_coords, center_coords)
+		results = self._format_results(candidate_coords, center_coords, distance_km, use_circle)
 
 		return {"center": center_coords,"results": results}
 				
