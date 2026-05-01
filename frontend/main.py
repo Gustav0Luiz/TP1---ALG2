@@ -342,7 +342,7 @@ def buscar_ou_limpar(
 
     viewport = {
         "center": nova_posicao,
-        "zoom": 16,
+        "zoom": 15,
         "transition": "flyTo"
     }
 

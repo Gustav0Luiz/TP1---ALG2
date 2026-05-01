@@ -14,8 +14,8 @@ Quando precisar alterar uma configuração padrão, altere aqui.
 
 # Coordenada central inicial.
 # Atualmente aponta para a região da Praça Raul Soares, em Belo Horizonte.
-LAT = -19.922760
-LON = -43.945162
+LAT = -19.869782
+LON = -43.964591
 
 
 # Valor inicial usado como alcance padrão da busca.

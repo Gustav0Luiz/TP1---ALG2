@@ -7,22 +7,24 @@
 
 body {
     margin: 0;
+    padding: 0;
     font-family: 'Beagle Brigade', Arial, sans-serif;
 }
 
 .pagina {
-    padding: 20px;
+    padding: 0 20px 20px 20px; 
 }
 
 .titulo {
     font-family: 'Beagle Brigade', Arial, sans-serif;
     text-align: center;
     color: #fc802d;
+    margin-top: 0;       
     margin-bottom: 22px;
     font-size: 42px;
     font-weight: normal;
+    padding-top: 15px;   
 }
-
 /* -------------------- CONTROLES SUPERIORES -------------------- */
 
 .container-controles {
@@ -312,7 +314,7 @@ body {
 /* -------------------- MAPA -------------------- */
 
 .container-mapa {
-    height: 75vh;
+    height: 69vh;
     width: 90%;
     margin: auto;
     border-radius: 12px;
@@ -321,7 +323,7 @@ body {
 }
 
 .mapa {
-    height: 75vh;
+    height: 69vh;
     width: 100%;
     border-radius: 12px;
     overflow: hidden;
