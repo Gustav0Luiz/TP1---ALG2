@@ -30,25 +30,30 @@ class KDTree:
 			right=self._build(points[median_idx + 1:], depth + 1)
 		)
 
-	def display(self, node=None, depth=0):
+	def print(self, node=None, depth=0):
 		if node is None:
 			node = self.root
-		
+			if node is None:
+				print("Árvore vazia.")
+				return
+   		
 		print("  " * depth + f"Axis {depth % len(node.point)}: {node.point}")
 		
 		if node.left:
-			self.display(node.left, depth + 1)
+			self.print(node.left, depth + 1)
 		if node.right:
-			self.display(node.right, depth + 1)
+			self.print(node.right, depth + 1)
    
    # ____________ Buscas ____________
    
-	def search_rect(self, point_min, point_max):
+	def search_rect(self, point_min:tuple, point_max:tuple):
 		results = []
-		self._rect_query(self.root, point_min, point_max, 0, results)
+		if self.root:
+			self._rect_query(self.root, point_min, point_max, 0, results)
 		return results
 
-	def _rect_query(self, node, p_min, p_max, depth, results):
+	def _rect_query(self, node:Node, p_min:tuple, p_max:tuple,
+                 	depth:int, results:list):
 		if node is None:
 			return
 
@@ -60,24 +65,26 @@ class KDTree:
 			results.append(node.point)
 
 		# Poda da árvore: checar qual caminho seguir
-		if p_min[axis] < node.point[axis]:
+		if p_min[axis] < node.point[axis] and node.left:
 			self._rect_query(node.left, p_min, p_max, depth + 1, results)
-		if p_max[axis] >= node.point[axis]:
+		if p_max[axis] >= node.point[axis] and node.right:
 			self._rect_query(node.right, p_min, p_max, depth + 1, results)
 
-	def search_radius(self, center, radius):
+	def search_radius(self, center:tuple, radius:float):
 		results = []
-		self._radius_query(self.root, center, radius, 0, results)
+		if self.root:
+			self._radius_query(self.root, center, radius, 0, results)
 		return results
 
-	def _radius_query(self, node, center, radius, depth, results):
+	def _radius_query(self, node:Node, center:tuple, radius:float,
+                   	depth:int, results:list):
 		if node is None:
 			return
 
 		k = len(node.point)
 		axis = depth % k
 
-		# Calcular distância euclidiana
+		# Calcular distância euclidiana (sqrt(sum((x_i - c_i)^2))))
 		dist = math.sqrt(sum((node.point[i] - center[i])**2 for i in range(k)))
 		
 		# Checar se o ponto do nó atual está dentro do raio
@@ -86,48 +93,27 @@ class KDTree:
 
 		# Poda da árvore: checar qual caminho seguir
 		diff = center[axis] - node.point[axis]
-		if diff - radius < 0: 
+		if diff - radius < 0 and node.left:
 			self._radius_query(node.left, center, radius, depth + 1, results)
-		if diff + radius >= 0:
+		if diff + radius >= 0 and node.right:
 			self._radius_query(node.right, center, radius, depth + 1, results)
 
-# Depuração
+# Depuração e teste
 if __name__ == "__main__":
 	import pandas as pd
-	from pathlib import Path
-	
-	PROJECT_ROOT = Path(__file__).parent.parent
-	COORDS_PATH = PROJECT_ROOT / 'data' / 'butecos_bh_coords.csv'
-	
-	sample_coords = pd.read_csv(COORDS_PATH)
-	tree = KDTree(sample_coords[['latitude', 'longitude']].values.tolist())
-	#tree.display()
  
-	def calcular_limites_retangulo(lat_centro, lon_centro, diagonal_km):
-		# o retangulo eh um quadrado
-		lado_km = diagonal_km / math.sqrt(2)  # (D = L * raiz(2))
-		meio_lado_km = lado_km / 2 # tamanho para cada lado do centro
-
-		# Aproximação:
-		# 1 grau de latitude equivale a aproximadamente 111km
-		delta_lat = meio_lado_km / 111
-
-		# 1 grau de longitude varia conforme a latitude - vide formula:
-		# 1 km =  111.32 * cos(latitude_em_radianos)
-		delta_lon = meio_lado_km / (111.32 * math.cos(math.radians(lat_centro)))
-
-		bounds = [
-			[lat_centro - delta_lat, lon_centro - delta_lon],  # canto inferior esquerdo
-			[lat_centro + delta_lat, lon_centro + delta_lon]   # canto superior direito
-		]
-		return bounds
- 
+	from .config import COORDS_PATH
+	from .utils import calcular_limites_retangulo
+	
+	coords = pd.read_csv(COORDS_PATH)
+	tree = KDTree(coords[['latitude', 'longitude']].values.tolist())
+	#tree.print()
  
 	LAT = -19.922760
 	LON = -43.945162
-	radious = 3 # km
+	radius = 3 # km
  
-	bounds = calcular_limites_retangulo(LAT, LON, radious)
+	bounds = calcular_limites_retangulo(LAT, LON, radius)
 	print(bounds)
 	print(tree.search_rect(bounds[0], bounds[1]))
 	
