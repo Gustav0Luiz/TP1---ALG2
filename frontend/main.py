@@ -4,7 +4,6 @@ import dash_leaflet as dl
 
 from dash import dcc, Input, Output, State, no_update, ctx
 from dash_extensions.enrich import DashProxy, html
-
 from frontend.utils.config import LAT, LON, DIAGONAL_KM, custom_icon_bar_pin, custom_icon_search_pin
 from frontend.utils.geo import calcular_limites_retangulo
 from frontend.utils.table_components import CreateTableDataFromResults, create_tabela_resultados
@@ -13,7 +12,7 @@ from backend.scripts.addr_search import AddressSearcher
 
 from frontend.components.map_components import (
     area_busca,
-    pin_centro,
+    camada_pin_centro,
     bairros,
     bairro_btn,
     camada_bairros,
@@ -64,12 +63,21 @@ def CreateMarkers(bares):
             children=[
                 dl.Popup(
                     html.Div([
-                        html.B(bar.get("name", ""), className="popup-title"),
-                        html.Br(),
-                        html.Span(endereco, className="popup-address"),
-                        html.Br(),
-                        html.Small(bar.get("zip_code", ""))
-                    ])
+                        html.Div(
+                            bar.get("name", ""),
+                            className="popup-title"
+                        ),
+
+                        html.Div(
+                            endereco,
+                            className="popup-address"
+                        ),
+
+                        html.Div(
+                            bar.get("zip_code", ""),
+                            className="popup-cep"
+                        )
+                    ], className="popup-card")
                 ),
             ]
         )
@@ -113,14 +121,35 @@ app = DashProxy(
     assets_folder="assets"
 )
 
+# nome do site
+app.title = "Explorador Comida Di Buteco BH"
 
 # ---------------------- LAYOUT ----------------------
 
 app.layout = html.Div([
 
-    html.H2(
-        "Explorador Comida Di Buteco 2026 - BH",
-        className="titulo"
+    html.Div([
+        html.Div([
+            html.Span(className="risco risco-1"),
+            html.Span(className="risco risco-2"),
+            html.Span(className="risco risco-3"),
+        ], className="efeito-titulo efeito-esquerda"),
+
+        html.H2(
+            "Explorador Comida Di Buteco 2026 - BH",
+            className="titulo"
+        ),
+
+        html.Div([
+            html.Span(className="risco risco-1"),
+            html.Span(className="risco risco-2"),
+            html.Span(className="risco risco-3"),
+        ], className="efeito-titulo efeito-direita"),
+    ], className="container-titulo"),
+
+    html.P(
+    "Busque bares próximos a um endereço e visualize os resultados no mapa.",
+    className="subtitulo"
     ),
 
     html.Div([
@@ -130,7 +159,7 @@ app.layout = html.Div([
                 id="barra-busca",
                 type="text",
                 placeholder="🔍︎ Insira seu endereço",
-                persistence=True,
+                persistence=False,
                 className="input-busca"
             )
         ], className="container-input-busca"),
@@ -220,7 +249,7 @@ app.layout = html.Div([
             camada_bairros,
 
             # Pin central da busca.
-            pin_centro,
+            camada_pin_centro,
 
             # Área de busca: começa vazia e depois recebe retângulo ou círculo.
             area_busca,
@@ -231,7 +260,7 @@ app.layout = html.Div([
         ],
             id="mapa-principal",
             center=[LAT, LON],
-            zoom=16,
+            zoom=15,
             className="mapa",
             attributionControl=False
         )
@@ -251,7 +280,7 @@ app.layout = html.Div([
 @app.callback(
     Output("mapa-principal", "viewport"),
     Output("area-busca", "children"),
-    Output("pin-centro", "position"),
+    Output("camada-pin-centro", "children"),
     Output("tabela-bares", "data"),
     Output("camada-pontos", "children"),
 
@@ -299,7 +328,7 @@ def buscar_ou_limpar(
         return (
             no_update,      # mantém o mapa na posição atual
             [],             # remove retângulo/círculo
-            no_update,      # mantém o pin onde está
+            [],             # remove o pin central
             [],             # tabela vazia
             todos_markers   # volta a exibir todos os bares
         )
@@ -311,13 +340,20 @@ def buscar_ou_limpar(
         return no_update, no_update, no_update, no_update, no_update
 
     if alcance_digitado is None:
-        alcance_digitado = DIAGONAL_KM
+        return no_update, no_update, no_update, no_update, no_update
+
+    try:
+        alcance_digitado = float(alcance_digitado)
+    except (TypeError, ValueError):
+        return no_update, no_update, no_update, no_update, no_update
+
+    if alcance_digitado <= 0:
+        return no_update, no_update, no_update, no_update, no_update
 
     if tipo_busca is None:
         tipo_busca = "retangulo"
 
     endereco_digitado = endereco_digitado.strip()
-    alcance_digitado = float(alcance_digitado)
 
     use_circle = tipo_busca == "circulo"
 
@@ -336,6 +372,13 @@ def buscar_ou_limpar(
 
     bares_filtrados = resposta["results"]
     nova_posicao = [lat, lon]
+    novo_pin_centro = [
+    dl.Marker(
+        id="pin-centro",
+        position=nova_posicao,
+        icon=custom_icon_search_pin
+    )
+]
 
     novos_dados_tabela = CreateTableDataFromResults(bares_filtrados)
     novos_markers = CreateMarkers(bares_filtrados)
@@ -356,11 +399,11 @@ def buscar_ou_limpar(
         nova_area_busca = [
             dl.Rectangle(
                 bounds=novo_bounds,
-                color="blue",
-                fillColor="blue",
+                color="#F27405",
+                fillColor="#FFB948",
                 weight=2,
-                opacity=0.9,
-                fillOpacity=0.12
+                opacity=0.8,
+                fillOpacity=0.15
             )
         ]
 
@@ -371,20 +414,20 @@ def buscar_ou_limpar(
             dl.Circle(
                 center=nova_posicao,
                 radius=raio_metros,
-                color="red",
-                fillColor="red",
+                color="#F27405",
+                fillColor="#FFB948",
                 weight=2,
-                opacity=0.9,
+                opacity=0.8,
                 fillOpacity=0.15
             )
         ]
 
     return (
-        viewport,
-        nova_area_busca,
-        nova_posicao,
-        novos_dados_tabela,
-        novos_markers
+            viewport,
+            nova_area_busca,
+            novo_pin_centro,
+            novos_dados_tabela,
+            novos_markers
     )
 
 

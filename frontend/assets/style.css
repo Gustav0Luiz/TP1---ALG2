@@ -1,3 +1,5 @@
+/* Importa uma fonte personalizada salva dentro da pasta assets/fonts.
+   Essa fonte é usada principalmente no título principal e no título da tabela. */
 @font-face {
     font-family: 'Beagle Brigade';
     src: url('fonts/BeagleBrigadeAU.ttf') format('truetype');
@@ -5,16 +7,22 @@
     font-style: normal;
 }
 
+/* Configuração global da página.
+   Remove margens/paddings padrão do navegador e define a fonte base. */
 body {
     margin: 0;
     padding: 0;
     font-family: 'Beagle Brigade', Arial, sans-serif;
+    background-color: #fff4e6;
 }
 
+/* Container geral da página inteira.
+   Envolve título, controles, mapa e tabela. */
 .pagina {
     padding: 0 20px 20px 20px; 
 }
 
+/* Título principal da aplicação.*/
 .titulo {
     font-family: 'Beagle Brigade', Arial, sans-serif;
     text-align: center;
@@ -25,23 +33,100 @@ body {
     font-weight: normal;
     padding-top: 15px;   
 }
+
+.container-titulo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+    padding-top: 15px;
+    margin-bottom: 22px;
+}
+
+.container-titulo .titulo {
+    margin: 0;
+    padding-top: 0;
+}
+
+.efeito-titulo {
+    position: relative;
+    width: 34px;
+    height: 36px;
+}
+
+.efeito-titulo .risco {
+    position: absolute;
+    width: 18px;
+    height: 2px;
+    background-color: #fc802d;
+    border-radius: 99px;
+}
+
+.efeito-titulo .risco-1 {
+    top: 4px;
+    left: 6px;
+    transform: rotate(28deg);
+}
+
+.efeito-titulo .risco-2 {
+    top: 17px;
+    left: 0;
+}
+
+.efeito-titulo .risco-3 {
+    top: 30px;
+    left: 6px;
+    transform: rotate(-28deg);
+}
+
+/* Espelha o detalhe do lado direito */
+.efeito-direita {
+    transform: scaleX(-1);
+}
+
+
+.subtitulo {
+    margin-top: -12px;
+    margin-bottom: 24px;
+    text-align: center;
+    font-family: Inter, Arial, sans-serif;
+    font-size: 15px;
+    color: #5f4632;
+}
 /* -------------------- CONTROLES SUPERIORES -------------------- */
 
+/* Container que agrupa:
+   - barra de endereço;
+   - campo de alcance;
+   - botão Buscar;
+   - botão Limpar;
+   - toggle Retângulo/Círculo. */
 .container-controles {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 12px;
-    width: 90%;
+    width: 68%;
     margin: 0 auto 30px auto;
     flex-wrap: wrap;
+
+    background-color: #ffffff;
+    padding: 14px 10px;
+    border-radius: 22px;
+    box-shadow: 0 8px 24px rgba(90, 45, 10, 0.12);
+    border: 1px solid rgba(252, 128, 45, 0.25);
 }
 
+/* Container da barra de busca de endereço.
+   Controla a largura do campo de texto. */
 .container-input-busca {
     width: 48%;
     min-width: 360px;
 }
 
+/* Estilo externo do input de busca.
+   No Dash, o dcc.Input pode gerar uma estrutura interna,
+   então esta classe estiliza o container visual do campo. */
 .input-busca {
     width: 100%;
     height: 48px;
@@ -57,6 +142,7 @@ body {
     font-family: Inter, Arial, sans-serif;
 }
 
+/* Mantém a borda laranja e remove outline quando o campo de busca está selecionado. */
 .input-busca:focus,
 .input-busca:focus-visible,
 .input-busca:focus-within {
@@ -65,6 +151,8 @@ body {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08) !important;
 }
 
+/* Campo interno real criado pelo Dash dentro do input de busca.
+   Remove bordas internas para não criar "dupla borda". */
 .input-busca .dash-input-element {
     outline: none !important;
     border: none !important;
@@ -74,6 +162,7 @@ body {
     color: #111827;
 }
 
+/* Remove efeitos extras quando o input interno está em foco. */
 .input-busca .dash-input-element:focus,
 .input-busca .dash-input-element:focus-visible {
     outline: none !important;
@@ -81,11 +170,13 @@ body {
     box-shadow: none !important;
 }
 
+/* Container que agrupa o label "Alcance da Busca" e o input numérico. */
 .container-raio {
     display: flex;
     align-items: center;
 }
 
+/* Texto/label ao lado do campo de alcance. */
 .label-raio {
     font-size: 14px;
     font-weight: bold;
@@ -95,6 +186,8 @@ body {
     font-family: Inter, Arial, sans-serif;
 }
 
+/* Estilo externo do campo numérico de alcance.
+   É onde o usuário informa a diagonal do retângulo ou o raio do círculo. */
 .input-raio {
     width: 75px;
     height: 48px;
@@ -111,6 +204,7 @@ body {
     text-align: center;
 }
 
+/* Mantém a borda laranja e remove outline quando o campo de alcance está selecionado. */
 .input-raio:focus,
 .input-raio:focus-visible,
 .input-raio:focus-within {
@@ -119,6 +213,7 @@ body {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08) !important;
 }
 
+/* Campo interno real criado pelo Dash dentro do input numérico. */
 .input-raio .dash-input-element {
     outline: none !important;
     border: none !important;
@@ -129,6 +224,7 @@ body {
     text-align: center;
 }
 
+/* Remove efeitos extras quando o input numérico interno está em foco. */
 .input-raio .dash-input-element:focus,
 .input-raio .dash-input-element:focus-visible {
     outline: none !important;
@@ -136,52 +232,88 @@ body {
     box-shadow: none !important;
 }
 
+/* Botões internos de incremento/decremento do input numérico. */
 .input-raio .dash-input-stepper {
     border: none !important;
     background: transparent !important;
     color: #34495e;
 }
 
-.botao-buscar {
+/* Botão principal de busca e de apagar busca. */
+ 
+/* Estilo base dos dois botões */
+.botao-buscar,
+.botao-limpar {
     height: 48px;
     padding: 0 22px;
     border-radius: 14px;
-    border: none;
-    background-color: #fc802d;
-    color: black;
     font-size: 14px;
     font-weight: 700;
     cursor: pointer;
-    box-shadow: 0 4px 12px rgba(31, 41, 55, 0.22);
     font-family: Inter, Arial, sans-serif;
     white-space: nowrap;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    box-shadow: 0 4px 12px rgba(31, 41, 55, 0.22);
+
+    transition:
+        background-color 0.2s ease,
+        color 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
 }
 
-.botao-buscar:hover {
-    background-color: #fc802dd6;
+/* Botão principal */
+.botao-buscar {
+    border: 1px solid #fc802d;
+    background-color: #fc802d;
+    color: black;
 }
+
+/* Botão secundário */
 .botao-limpar {
-    height: 48px;
-    padding: 0 18px;
-    border-radius: 14px;
     border: 1px solid #fc802d;
     background-color: #ffffff;
     color: #fc802d;
-    font-size: 14px;
-    font-weight: 700;
-    cursor: pointer;
-    box-shadow: 0 4px 12px rgba(31, 41, 55, 0.12);
-    font-family: Inter, Arial, sans-serif;
-    white-space: nowrap;
 }
 
+/* Hover dos dois botões */
+.botao-buscar:hover,
+.botao-limpar:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 16px rgba(31, 41, 55, 0.28);
+}
+
+/* Hover específico do botão Buscar */
+.botao-buscar:hover {
+    background-color: #f87620;
+    border-color: #f87620;
+    color: black;
+}
+
+/* Hover específico do botão Limpar */
 .botao-limpar:hover {
     background-color: #fff7ed;
+    border-color: #f87620;
+    color: #f87620;
+}
+
+/* Remove outline padrão */
+.botao-buscar:focus,
+.botao-buscar:focus-visible,
+.botao-limpar:focus,
+.botao-limpar:focus-visible {
+    outline: none;
 }
 
 
 /* -------------------- TOGGLE RETÂNGULO / CÍRCULO -------------------- */
 
+/* Container externo do toggle de tipo de busca */
 .container-toggle {
     display: flex;
     align-items: center;
@@ -189,6 +321,7 @@ body {
     margin-left: 8px;
 }
 
+/* Caixa visual do toggle */
 .toggle-slider {
     position: relative;
     display: flex !important;
@@ -200,11 +333,32 @@ body {
     border-radius: 14px;
     background-color: #ffffff;
     border: 1px solid #fc802d;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08) !important;
     font-family: Inter, Arial, sans-serif;
     box-sizing: border-box;
+    overflow: visible;
 }
 
+/* Plaquinha laranja animada */
+.toggle-slider::before {
+    content: "";
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    width: calc(50% - 4px);
+    height: 32px;
+    border-radius: 10px;
+    background-color: #fc802d;
+    z-index: 1;
+    transition: transform 0.25s ease;
+}
+
+/* Quando a segunda opção estiver selecionada, desliza para a direita */
+.toggle-slider:has(.dash-options-list-option:nth-child(2).selected)::before {
+    transform: translateX(100%);
+}
+
+/* Cada opção do RadioItems */
 .toggle-slider .dash-options-list-option {
     position: relative;
     z-index: 2;
@@ -221,17 +375,19 @@ body {
     color: #34495e;
     border: none !important;
     outline: none !important;
-    background: transparent;
+    background: transparent !important;
     box-shadow: none !important;
     border-radius: 10px;
-    transition: all 0.25s ease;
+    transition: color 0.25s ease;
 }
 
+/* Esconde o radio padrão */
 .toggle-slider input[type="radio"],
 .toggle-slider .dash-options-list-option-checkbox {
     display: none !important;
 }
 
+/* Texto interno de cada opção */
 .toggle-slider .dash-options-list-option-text {
     display: flex;
     align-items: center;
@@ -239,26 +395,25 @@ body {
     width: 100%;
 }
 
+/* Opção selecionada: muda só a cor do texto */
 .toggle-slider .dash-options-list-option.selected {
-    background-color: #fc802d !important;
+    background-color: transparent !important;
     color: #000000 !important;
 }
 
+/* Remove outline/sombra de foco */
 .toggle-slider,
 .toggle-slider *,
 .toggle-slider *:focus,
 .toggle-slider *:focus-visible,
 .toggle-slider *:active {
     outline: none !important;
-    box-shadow: none !important;
 }
 
-.toggle-slider {
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08) !important;
-}
 
 /* -------------------- TOOLTIP DO TOGGLE -------------------- */
 
+/* Container do texto + tooltip de cada opção */
 .opcao-toggle-com-tooltip {
     position: relative;
     display: inline-flex;
@@ -266,6 +421,7 @@ body {
     justify-content: center;
 }
 
+/* Caixa do tooltip */
 .tooltip-opcao {
     position: absolute;
     bottom: calc(100% + 22px);
@@ -291,12 +447,14 @@ body {
     transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
+/* Mostra o tooltip ao passar o mouse */
 .opcao-toggle-com-tooltip:hover .tooltip-opcao {
     opacity: 1;
     visibility: visible;
     transform: translateX(-50%) translateY(-2px);
 }
 
+/* Setinha do tooltip */
 .tooltip-opcao::before {
     content: "";
     position: absolute;
@@ -313,6 +471,8 @@ body {
 
 /* -------------------- MAPA -------------------- */
 
+/* Container externo do mapa.
+   Controla altura, largura, sombra e bordas arredondadas. */
 .container-mapa {
     height: 69vh;
     width: 90%;
@@ -322,6 +482,8 @@ body {
     overflow: hidden;
 }
 
+/* Componente dl.Map em si.
+   Precisa ter altura definida para o Leaflet renderizar corretamente. */
 .mapa {
     height: 69vh;
     width: 100%;
@@ -331,23 +493,26 @@ body {
 
 /* -------------------- BOTÕES DO MAPA / EASYBUTTON -------------------- */
 
-/* Reduz o espaçamento vertical entre os controles do Leaflet */
+/* Controles nativos do Leaflet no canto do mapa.
+   Reduz o espaçamento vertical entre eles. */
 .leaflet-top .leaflet-control {
     margin-bottom: 2px !important;
 }
 
-/* Aproxima especificamente os EasyButtons */
+/* Container dos botões EasyButton.
+   Aproxima os botões de bairro/satélite. */
 .leaflet-control.easy-button-container {
     margin-bottom: 2px !important;
     margin-top: 0 !important;
 }
 
-/* Remove espaçamentos extras do container do EasyButton */
+/* Remove espaçamentos extras do container do EasyButton. */
 .easy-button-container {
     padding: 0 !important;
 }
 
-/* Botão interno do EasyButton */
+/* Botão interno do EasyButton.
+   Centraliza o ícone dentro do botão. */
 .easy-button-button {
     width: 30px !important;
     height: 30px !important;
@@ -358,7 +523,8 @@ body {
     line-height: normal !important;
 }
 
-/* Span interno criado pelo EasyButton */
+/* Span interno criado automaticamente pelo EasyButton.
+   Sem isso, o ícone pode ficar desalinhado. */
 .easy-button-button .button-state {
     display: flex !important;
     align-items: center !important;
@@ -370,7 +536,7 @@ body {
     padding: 0 !important;
 }
 
-/* Ícone do botão de satélite/camadas */
+/* Ícone do botão de troca de mapa normal/satélite. */
 .icone-controle-mapa {
     width: 22px;
     height: 22px;
@@ -380,7 +546,7 @@ body {
     padding: 0 !important;
 }
 
-/* Ícone do botão de bairros */
+/* Ícone do botão de mostrar/ocultar bairros. */
 .icone-bairros {
     width: 20px;
     height: 20px;
@@ -392,11 +558,14 @@ body {
 
 /* -------------------- TABELA -------------------- */
 
+/* Container externo da tabela de resultados. */
 .container-tabela {
     width: 90%;
     margin: 20px auto;
 }
 
+/* Título acima da tabela.
+   Exemplo: "Bares encontrados". */
 .titulo-tabela {
     width: 90%;
     margin: 24px auto 12px auto;
@@ -407,14 +576,68 @@ body {
     text-align: center;
 }
 
-/* -------------------- POPUPS -------------------- */
+/* -------------------- POPUPS DOS MARKERS -------------------- */
 
+/* Caixa externa padrão do popup do Leaflet.
+   É o balão branco que abre quando clicamos no marker. */
+.leaflet-popup-content-wrapper {
+    border-radius: 14px !important;
+    padding: 0 !important;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18) !important;
+}
+
+/* Área interna padrão do conteúdo do popup do Leaflet.
+   O Leaflet adiciona margem por padrão, então removemos para controlar tudo via .popup-card. */
+.leaflet-popup-content {
+    margin: 0 !important;
+    width: 230px !important;
+}
+
+/* Card interno criado por nós dentro do dl.Popup.
+   É o container principal do conteúdo do popup:
+   nome do bar, endereço e CEP. */
+.popup-card {
+    padding: 14px 16px;
+    font-family: Inter, Arial, sans-serif;
+    background-color: #ffffff;
+    border-radius: 14px;
+    border-top: 4px solid #fc802d;
+}
+
+/* Nome do bar dentro do popup.
+   Fica centralizado e em destaque. */
 .popup-title {
-    font-size: 14px;
+    text-align: center;
+    font-size: 15px;
+    font-weight: 800;
     color: #1f2937;
+    margin-bottom: 8px;
+    line-height: 1.25;
 }
 
+/* Endereço do bar dentro do popup.
+   Texto menor, centralizado e com cor mais suave. */
 .popup-address {
-    font-size: 11px;
+    text-align: center;
+    font-size: 12px;
     color: #4b5563;
+    line-height: 1.35;
+    margin-bottom: 6px;
 }
+
+/* CEP do bar dentro do popup.
+   Fica menor e abaixo do endereço. */
+.popup-cep {
+    text-align: center;
+    font-size: 11px;
+    color: #6b7280;
+    font-weight: 600;
+}
+
+/* Pontinha triangular do popup do Leaflet.
+   Mantemos branca para combinar com o card. */
+.leaflet-popup-tip {
+    background-color: #ffffff !important;
+}
+
+

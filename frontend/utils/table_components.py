@@ -84,21 +84,24 @@ def create_tabela_resultados(dados_tabela_inicial=None):
 
         page_size=10,
 
+        fill_width=True,
+
         style_table={
             "overflowX": "auto",
-            "borderRadius": "14px",
+            "borderRadius": "18px",
             "overflow": "hidden",
-            "boxShadow": "0 4px 14px rgba(0, 0, 0, 0.10)",
-            "border": "1px solid #f3d1bd",
+            "boxShadow": "0 8px 24px rgba(90, 45, 10, 0.12)",
+            "border": "1px solid #f1d3bf",
+            "backgroundColor": "#fffaf5",
         },
 
         style_header={
             "backgroundColor": "#fc802d",
-            "color": "#111827",
-            "fontWeight": "700",
+            "color": "#ffffff",
+            "fontWeight": "800",
             "fontFamily": "Inter, Arial, sans-serif",
-            "fontSize": "14px",
-            "padding": "12px",
+            "fontSize": "15px",
+            "padding": "14px 12px",
             "border": "none",
             "textAlign": "center",
         },
@@ -106,13 +109,14 @@ def create_tabela_resultados(dados_tabela_inicial=None):
         style_cell={
             "fontFamily": "Inter, Arial, sans-serif",
             "fontSize": "14px",
-            "padding": "12px",
+            "padding": "14px 14px",
             "textAlign": "left",
             "whiteSpace": "normal",
             "height": "auto",
             "border": "none",
-            "borderBottom": "1px solid #f1f1f1",
+            "borderBottom": "1px solid #f3ede7",
             "color": "#1f2937",
+            "lineHeight": "1.4",
         },
 
         style_data={
@@ -122,27 +126,28 @@ def create_tabela_resultados(dados_tabela_inicial=None):
         style_data_conditional=[
             {
                 "if": {"row_index": "odd"},
-                "backgroundColor": "#fff7ed",
+                "backgroundColor": "#fff8f1",
             },
             {
                 "if": {"state": "active"},
-                "backgroundColor": "#ffedd5",
+                "backgroundColor": "#fff0e6",
                 "border": "1px solid #fc802d",
             },
             {
                 "if": {"state": "selected"},
-                "backgroundColor": "#ffedd5",
+                "backgroundColor": "#fff0e6",
                 "border": "1px solid #fc802d",
             },
             {
                 "if": {"column_id": "distancia_km"},
                 "textAlign": "center",
-                "fontWeight": "700",
-                "color": "#fc802d",
+                "fontWeight": "800",
+                "color": "#e66f21",
+                "fontSize": "15px",
             },
             {
                 "if": {"column_id": "nome"},
-                "fontWeight": "700",
+                "fontWeight": "800",
             },
         ],
 
@@ -150,14 +155,32 @@ def create_tabela_resultados(dados_tabela_inicial=None):
             {
                 "if": {"column_id": "nome"},
                 "width": "22%",
+                "textAlign": "left",
             },
             {
                 "if": {"column_id": "endereco"},
                 "width": "60%",
+                "textAlign": "left",
             },
             {
                 "if": {"column_id": "distancia_km"},
                 "width": "18%",
+                "textAlign": "center",
             },
+        ],
+
+        css=[
+            {
+                "selector": ".dash-table-container .dash-spreadsheet-container",
+                "rule": "border-radius: 18px; overflow: hidden;"
+            },
+            {
+                "selector": ".dash-spreadsheet td div",
+                "rule": "display: block;"
+            },
+            {
+                "selector": ".previous-next-container",
+                "rule": "margin-top: 10px;"
+            }
         ],
     )

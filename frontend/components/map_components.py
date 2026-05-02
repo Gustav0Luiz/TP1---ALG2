@@ -29,12 +29,10 @@ area_busca = dl.LayerGroup(
 # Pin central da busca.
 # Ele representa o endereço digitado pelo usuário.
 # A posição inicial está na Praça Raul Soares.
-pin_centro = dl.Marker(
-    id="pin-centro",
-    position=[LAT,LON],
-    icon=custom_icon_search_pin,
+camada_pin_centro = dl.LayerGroup(
+    id="camada-pin-centro",
+    children=[]
 )
-
 
 # GeoJSON com a divisão dos bairros de Belo Horizonte.
 # O arquivo bairros_bh.geojson deve estar dentro da pasta assets.
@@ -44,10 +42,11 @@ bairros = dl.GeoJSON(
     id="bairros-bh",
     options={
         "style": {
-            "color": "#7803F6",
-            "weight": 1,
-            "opacity": 0.8,
-            "fillOpacity": 0
+            "color": "#2C3E50", # Azul petróleo profundo
+            "weight": 0.8, # Linha ultra fina
+            "opacity": 0.5,
+            "fillOpacity": 0.05, # Um leve "véu" para distinguir as áreas
+            "fillColor": "#BDC3C7" 
         }
     }
 )
