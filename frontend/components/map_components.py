@@ -1,17 +1,3 @@
-"""
-components/map_components.py
-
-Responsabilidade do arquivo:
-- Centralizar os componentes visuais relacionados ao mapa.
-- Criar camadas fixas/controláveis do dash-leaflet.
-- Definir botões do mapa, como:
-    - botão para ligar/desligar a divisão dos bairros;
-    - botão para alternar entre mapa padrão e mapa satélite.
-- Definir camadas que serão atualizadas por callbacks no main.py.
-
-Esses objetos são importados no main.py e usados dentro do dl.Map.
-"""
-
 import dash_leaflet as dl
 from frontend.utils.config import LAT, LON, custom_icon_search_pin
 
@@ -28,7 +14,6 @@ area_busca = dl.LayerGroup(
 
 # Pin central da busca.
 # Ele representa o endereço digitado pelo usuário.
-# A posição inicial está na Praça Raul Soares.
 camada_pin_centro = dl.LayerGroup(
     id="camada-pin-centro",
     children=[]

@@ -1,27 +1,6 @@
-"""
-utils/config.py
-
-Responsabilidade do arquivo:
-- Centralizar constantes e configurações globais do projeto.
-- Guardar valores usados em diferentes partes do sistema, como:
-    - coordenada inicial do mapa;
-    - valor padrão da diagonal/alcance;
-    - configuração do ícone personalizado dos bares.
-
-Quando precisar alterar uma configuração padrão, altere aqui.
-"""
-
-
 # Coordenada central inicial.
-# Atualmente aponta para a região da Praça Raul Soares, em Belo Horizonte.
 LAT = -19.869782
 LON = -43.964591
-
-
-# Valor inicial usado como alcance padrão da busca.
-# No retângulo, esse valor representa a diagonal em km.
-# No círculo, se usado, pode representar o raio em km.
-DIAGONAL_KM = 5
 
 
 # Ícone personalizado dos bares.

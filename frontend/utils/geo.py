@@ -1,34 +1,7 @@
-"""
-utils/geo.py
-
-Responsabilidade do arquivo:
-- Centralizar funções geográficas e matemáticas do projeto.
-- Calcular distância entre coordenadas.
-- Calcular os limites/bounds da área retangular de busca.
-- Converter, futuramente, o endereço digitado pelo usuário em latitude/longitude.
-
-
-- Atualmente algumas funções estão mockadas/simplificadas.
-- Depois, CalculateDistance pode ser substituída pela fórmula de Haversine.
-- Depois, searchAddress pode ser substituída por uma chamada real à API de geocodificação.
-"""
-
 import math
 from backend.src.osm import OSMFetcher
 
 _osm_fetcher = OSMFetcher()
-
-
-
-def CalculateDistance(lat_origem, lon_origem, lat_destino, lon_destino):
-    """
-    Calcula a distância entre o ponto de referência e um bar.
-
-    Por enquanto está mockada.
-    Depois podemos substituir pela fórmula de Haversine.
-    """
-
-    return 1.5
 
 
 def calcular_limites_retangulo(lat_centro, lon_centro, diagonal_km):

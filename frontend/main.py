@@ -4,7 +4,7 @@ import dash_leaflet as dl
 
 from dash import dcc, Input, Output, State, no_update, ctx
 from dash_extensions.enrich import DashProxy, html
-from frontend.utils.config import LAT, LON, DIAGONAL_KM, custom_icon_bar_pin, custom_icon_search_pin
+from frontend.utils.config import LAT, LON, custom_icon_bar_pin, custom_icon_search_pin
 from frontend.utils.geo import calcular_limites_retangulo
 from frontend.utils.table_components import CreateTableDataFromResults, create_tabela_resultados
 

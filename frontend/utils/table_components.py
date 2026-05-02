@@ -1,25 +1,3 @@
-"""
-utils/table_components.py
-
-Responsabilidade do arquivo:
-- Centralizar tudo que está relacionado à tabela de resultados.
-- Transformar os bares retornados pelo orquestrador em dados para a tabela.
-- Criar o componente visual dash_table.DataTable.
-
-Este arquivo espera receber os bares já filtrados pelo backend/orquestrador.
-
-O orquestrador deve retornar uma lista de bares contendo, no mínimo:
-- name
-- street
-- number
-- district
-- city_state
-- distance_km
-
-A filtragem e ordenação ficam no backend/orquestrador.
-"""
-
-
 from dash import dash_table
 
 
