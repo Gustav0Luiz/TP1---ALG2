@@ -370,12 +370,8 @@ def buscar_ou_limpar(
             distance_km=alcance_digitado,
             use_circle=use_circle
         )
-    except ValueError:
-        return no_update, no_update, no_update, no_update, no_update,"Endereço não encontrado. Tente informar rua, número e bairro. "
     except Exception as e:
-        if "429" in str(e) or "RateLimited" in str(e.__class__.__name__):
-            return no_update, no_update, no_update, no_update, no_update, "Serviço de geocodificação indisponível. Tente novamente em alguns segundos."
-        raise
+        return no_update, no_update, no_update, no_update, no_update, "Erro ao buscar endereço. Tente outro endereço ou tente mais tarde."
     
     if resposta is None or resposta.get("center") is None:
         return (

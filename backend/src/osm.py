@@ -1,3 +1,4 @@
+import time
 from geopy.geocoders import Nominatim
 from geopy.extra.rate_limiter import RateLimiter
 
@@ -6,10 +7,11 @@ class OSMFetcher:
         geolocator = Nominatim(user_agent=user_agent, timeout=10)
         self._geocode = RateLimiter(
                             geolocator.geocode,
-                            min_delay_seconds=2.5, # Reduzido para ~0.4 req/seg (mais conservador)
-                            max_retries=5,         # Mais tentativas com esperas maiores
-                            error_wait_seconds=5.0 # 5s entre tentativas de erro
+                            min_delay_seconds=3.0, # 0.33 req/seg (muito conservador)
+                            max_retries=2,         # Poucas retentativas
+                            error_wait_seconds=10.0 # 10s entre tentativas
                         )
+        self._last_request_time = 0
 
     def _build_query_variants(self, row):
         street = row["street"]
@@ -37,10 +39,15 @@ class OSMFetcher:
         }
 
     def fetch(self, row, coords_only=False):
+        elapsed = time.time() - self._last_request_time
+        if elapsed < 3.5:
+            time.sleep(3.5 - elapsed)
+
         result = None
         matched_query = None
         for query in self._build_query_variants(row):
             result = self._geocode(query, addressdetails=True, timeout=10)
+            self._last_request_time = time.time()
             if result:
                 matched_query = query
                 break
