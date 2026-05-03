@@ -3,12 +3,12 @@ from geopy.extra.rate_limiter import RateLimiter
 
 class OSMFetcher:
     def __init__(self, user_agent: str = "TP1_ALG2"):
-        geolocator = Nominatim(user_agent=user_agent)
+        geolocator = Nominatim(user_agent=user_agent, timeout=10)
         self._geocode = RateLimiter(
-                            geolocator.geocode, 
-                            min_delay_seconds=1.1, # Limite de 1 req/seg da API
-                            max_retries=3,         # 3 tentativas
-                            error_wait_seconds=2.0 # 2s entre tentativas
+                            geolocator.geocode,
+                            min_delay_seconds=2.5, # Reduzido para ~0.4 req/seg (mais conservador)
+                            max_retries=5,         # Mais tentativas com esperas maiores
+                            error_wait_seconds=5.0 # 5s entre tentativas de erro
                         )
 
     def _build_query_variants(self, row):
@@ -16,10 +16,8 @@ class OSMFetcher:
         number = row.get("number", "")
         zip_code = row["zip_code"]
         district = row.get("district", "")
-        base = {"city": "Belo Horizonte", "state": "Minas Gerais", "country": "Brazil"}
         no_country = {"city": "Belo Horizonte", "state": "Minas Gerais"}
         return [
-            {**base,       "street": f"{street}, {number}", "postalcode": zip_code},
             {**no_country, "street": f"{street}, {number}", "postalcode": zip_code},
             {**no_country, "street": f"{street}, {number}", "county": district},
             {**no_country, "street": f"{street}, {number}"},
