@@ -641,3 +641,13 @@ body {
 }
 
 
+.mensagem-busca {
+    width: 90%;
+    margin: -16px auto 18px auto;
+    text-align: center;
+    font-family: Inter, Arial, sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: #b42318;
+    min-height: 20px;
+}

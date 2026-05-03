@@ -228,6 +228,11 @@ app.layout = html.Div([
 
     ], className="container-controles"),
 
+    html.Div(
+    id="mensagem-busca",
+    className="mensagem-busca"
+    ),
+
     html.Div([
 
         dl.Map([
@@ -283,6 +288,7 @@ app.layout = html.Div([
     Output("camada-pin-centro", "children"),
     Output("tabela-bares", "data"),
     Output("camada-pontos", "children"),
+    Output("mensagem-busca", "children"),
 
     Input("botao-buscar", "n_clicks"),
     Input("botao-limpar", "n_clicks"),
@@ -330,25 +336,26 @@ def buscar_ou_limpar(
             [],             # remove retângulo/círculo
             [],             # remove o pin central
             [],             # tabela vazia
-            todos_markers   # volta a exibir todos os bares
+            todos_markers,   # volta a exibir todos os bares
+            "",             # mensagem de busca
         )
 
     # ----------------------
     # BUSCAR ENDEREÇO
     # ----------------------
     if endereco_digitado is None or endereco_digitado.strip() == "":
-        return no_update, no_update, no_update, no_update, no_update
+        return no_update, no_update, no_update, no_update, no_update, "Digite um endereço para realizar a busca."
 
     if alcance_digitado is None:
-        return no_update, no_update, no_update, no_update, no_update
+        return no_update, no_update, no_update, no_update, no_update, "Digite um valor de alcance para realizar a busca."
 
     try:
         alcance_digitado = float(alcance_digitado)
     except (TypeError, ValueError):
-        return no_update, no_update, no_update, no_update, no_update
+        return no_update, no_update, no_update, no_update, no_update, "O alcance deve ser um número maior que zero."
 
     if alcance_digitado <= 0:
-        return no_update, no_update, no_update, no_update, no_update
+       return no_update, no_update, no_update, no_update, no_update, "O alcance deve ser maior que zero."
 
     if tipo_busca is None:
         tipo_busca = "retangulo"
@@ -364,7 +371,17 @@ def buscar_ou_limpar(
             use_circle=use_circle
         )
     except ValueError:
-        return no_update, no_update, no_update, no_update, no_update
+        return no_update, no_update, no_update, no_update, no_update,"Endereço não encontrado. Tente informar rua, número e bairro. "
+    
+    if resposta is None or resposta.get("center") is None:
+        return (
+            no_update,
+            no_update,
+            no_update,
+            no_update,
+            no_update,
+            "Endereço não encontrado. Tente informar rua, número e bairro. "
+        )
 
     lat, lon = resposta["center"]
     lat = float(lat)
@@ -373,12 +390,12 @@ def buscar_ou_limpar(
     bares_filtrados = resposta["results"]
     nova_posicao = [lat, lon]
     novo_pin_centro = [
-    dl.Marker(
-        id="pin-centro",
-        position=nova_posicao,
-        icon=custom_icon_search_pin
-    )
-]
+        dl.Marker(
+            id="pin-centro",
+            position=nova_posicao,
+            icon=custom_icon_search_pin
+        )
+    ]
 
     novos_dados_tabela = CreateTableDataFromResults(bares_filtrados)
     novos_markers = CreateMarkers(bares_filtrados)
@@ -427,7 +444,8 @@ def buscar_ou_limpar(
             nova_area_busca,
             novo_pin_centro,
             novos_dados_tabela,
-            novos_markers
+            novos_markers,
+            ""
     )
 
 

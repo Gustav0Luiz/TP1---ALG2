@@ -43,7 +43,7 @@ O sistema permite:
 - exibir os resultados em uma tabela;
 - ordenar os bares encontrados por distância em relação ao endereço pesquisado;
 - limpar a busca e voltar à visualização inicial;
-- alternar entre mapa padrão e mapa satélite;
+- alternar entre mapa padrão e mapa satélite (disponível apenas quando executado localmente);
 - ativar ou desativar a camada com contorno dos bairros de Belo Horizonte.
 
 ---
