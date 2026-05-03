@@ -2,204 +2,209 @@
 
 ## Explorador Comida di Buteco 2026 - BH
 
-Este projeto foi desenvolvido para o Trabalho Prático 1 da disciplina de **Algoritmos II**.
+Este projeto foi desenvolvido para o Trabalho Prático 1 da disciplina de **Algoritmos II** (UFMG).
 
-O objetivo principal do trabalho é implementar uma estrutura de dados espacial, especificamente uma **árvore k-dimensional (k-d tree)**, para realizar **busca ortogonal em conjuntos de pontos**. No contexto do projeto, os pontos representam bares participantes do **Comida di Buteco 2026 em Belo Horizonte**, localizados por meio de coordenadas geográficas.
+O objetivo principal é implementar uma estrutura de dados espacial, especificamente uma **árvore k-dimensional (k-d tree)**, para realizar **busca ortogonal em conjuntos de pontos**. No contexto do projeto, os pontos representam bares participantes do **Comida di Buteco 2026 em Belo Horizonte**, localizados por meio de coordenadas geográficas.
 
 A aplicação final é um sistema interativo em Python que permite ao usuário informar um endereço, definir uma área de busca e visualizar no mapa os bares localizados dentro dessa região.
 
 ---
 
-## Acesso ao projeto
+## Acesso ao Projeto
 
-O projeto está disponível publicamente no seguinte link:
+O projeto está disponível publicamente (código privado) no seguinte link:
 
-https://tp1-alg2-maor.onrender.com/
-
----
-
-## Contexto do trabalho
-
-O trabalho propõe a criação de um sistema para consulta de bares dentro de uma área retangular, definida a partir de um endereço informado pelo usuário.
-
-A base de dados utilizada contém bares participantes do Comida di Buteco 2026 em Belo Horizonte. Inicialmente, os dados dos bares possuem informações textuais de endereço, como rua, número, bairro e cidade. Para que seja possível realizar buscas espaciais, esses endereços são convertidos em coordenadas geográficas, representadas por latitude e longitude.
-
-Após essa conversão, os pontos são organizados em uma k-d tree. Essa estrutura permite realizar consultas por região de forma mais eficiente do que verificar todos os bares um por um.
+**[Explorador Comida di Buteco - Render](https://tp1-alg2-maor.onrender.com/)**
 
 ---
 
-## Funcionamento do sistema
+## Contexto do Trabalho
 
-Ao abrir a aplicação, o usuário visualiza um mapa interativo com os bares participantes marcados como pinos de localização.
+O trabalho propõe a criação de um sistema para consulta de bares dentro de uma área retangular (ou circular), definida a partir de um endereço informado pelo usuário.
 
-O sistema permite:
+A base de dados utiliza bares participantes do Comida di Buteco 2026 em Belo Horizonte. Inicialmente, os dados possuem informações textuais de endereço. Para realizar buscas espaciais, os endereços são convertidos em coordenadas geográficas (latitude e longitude).
 
-- visualizar todos os bares no mapa;
-- pesquisar um endereço;
-- definir o tamanho da área de busca;
-- escolher entre busca retangular e busca circular;
-- visualizar a região de busca desenhada no mapa;
-- filtrar os bares localizados dentro da região;
-- exibir os resultados em uma tabela;
-- ordenar os bares encontrados por distância em relação ao endereço pesquisado;
-- limpar a busca e voltar à visualização inicial;
-- alternar entre mapa padrão e mapa satélite (disponível apenas quando executado localmente);
-- ativar ou desativar a camada com contorno dos bairros de Belo Horizonte.
+Após a conversão, os pontos são organizados em uma **k-d tree**, permitindo consultas por região de forma mais eficiente.
 
 ---
 
-## Busca retangular
+## Funcionalidades
+
+Ao abrir a aplicação, o usuário visualiza um mapa interativo com os bares marcados como pinos de localização.
+
+O sistema oferece:
+
+- Visualização de todos os bares no mapa interativo
+- Pesquisa de bares por endereço
+- Definição do tamanho da área de busca (em km)
+- Escolha entre busca retangular ou circular
+- Visualização da região de busca desenhada no mapa
+- Tabela de resultados filtrados
+- Ordenação de bares por distância
+- Reset de filtros e busca
+- Alternância entre mapa padrão e satélite
+- Visualização de contorno dos bairros de BH
+
+---
+
+## Busca Retangular
 
 Na busca retangular, o usuário informa:
 
-1. um endereço;
-2. o comprimento da diagonal da região de busca, em quilômetros.
+1. Um endereço
+2. O comprimento da diagonal da região de busca (em quilômetros)
 
-O endereço informado é convertido em coordenadas geográficas e utilizado como centro da região. A partir da diagonal digitada, o sistema calcula os limites do retângulo e realiza uma busca ortogonal na k-d tree.
-
-Todos os bares localizados dentro da região são retornados e exibidos no mapa e na tabela.
+O sistema calcula os limites do retângulo e realiza uma busca ortogonal na k-d tree. Todos os bares localizados dentro da região são exibidos no mapa e na tabela.
 
 ---
 
-## Busca circular
+## Busca Circular
 
-Como funcionalidade extra, também foi implementada a busca circular.
+Como funcionalidade extra, foi implementada a busca circular.
 
-Nesse modo, o valor informado pelo usuário é interpretado como o raio da busca, em quilômetros. O sistema identifica os bares localizados dentro desse raio e utiliza a fórmula de Haversine para calcular a distância real entre o endereço pesquisado e os bares encontrados.
+Nesse modo, o valor informado é interpretado como o **raio da busca** (em quilômetros). O sistema identifica bares dentro desse raio e utiliza a **fórmula de Haversine** para calcular a distância real entre o endereço e os bares encontrados.
 
 ---
 
-## Dados utilizados
+## Dados Utilizados
 
-Os dados dos bares foram fornecidos no arquivo:
+Os dados dos bares foram fornecidos no arquivo `butecos_bh.csv`, contendo informações em formato textual. A API do **OpenStreetMap (Nominatim)** converte esses endereços em coordenadas geográficas, que são então utilizadas para construir a k-d tree.
 
-```text
-butecos_bh.csv
+---
+
+## Tecnologias Utilizadas
+
+| Tecnologia | Propósito |
+|-----------|----------|
+| **Python 3.10+** | Linguagem principal |
+| **Dash & Dash Leaflet** | Framework web e mapas interativos |
+| **Pandas** | Manipulação de dados |
+| **GeoPy / Nominatim** | Geocodificação (endereço → coordenadas) |
+| **OpenStreetMap** | Dados geográficos |
+| **Render** | Hospedagem (backend privado) |
+
+---
+
+## Estrutura do Projeto
+
 ```
-
-A base original possui os endereços dos bares em formato textual. Para transformar esses endereços em coordenadas geográficas, foi utilizada a API do OpenStreetMap por meio da biblioteca GeoPy/Nominatim.
-
-As coordenadas obtidas são utilizadas como entrada para a construção da k-d tree.
-
----
-
-## Tecnologias utilizadas
-
-- Python
-- Dash
-- Dash Leaflet
-- Dash Extensions
-- Pandas
-- GeoPy
-- OpenStreetMap / Nominatim
-- HTML/CSS
-- Render
-
----
-
-## Estrutura do projeto
-
-A estrutura principal do projeto está organizada em backend e frontend:
-
-```text
-tp1/
+TP1---ALG2/
 ├── backend/
 │   ├── data/
+│   │   ├── butecos_bh.csv
+│   │   └── address_search_cache.json
 │   ├── scripts/
+│   │   ├── addr_search.py
+│   │   ├── populate_csv.py
+│   │   └── fix_csv.py
 │   └── src/
+│       ├── kdtree.py
+│       ├── osm.py
+│       ├── config.py
+│       └── utils.py
 │
 ├── frontend/
 │   ├── assets/
+│   │   ├── style.css
+│   │   └── [ícones e imagens]
 │   ├── components/
+│   │   └── map_components.py
 │   ├── utils/
+│   │   ├── config.py
+│   │   ├── geo.py
+│   │   └── table_components.py
 │   └── main.py
 │
 ├── requirements.txt
-├── README.md
-
+└── README.md
 ```
 
 ### Backend
 
-O backend é responsável por:
-
-- carregar os dados dos bares;
-- converter endereços em coordenadas;
-- construir a k-d tree;
-- realizar a busca retangular;
-- realizar a busca circular;
-- calcular distâncias;
-- retornar os bares filtrados para o frontend.
+Responsável por:
+- Carregar dados dos bares
+- Converter endereços em coordenadas geográficas
+- Construir a k-d tree
+- Realizar busca retangular/circular
+- Calcular distâncias (Haversine)
+- Retornar bares filtrados ao frontend
 
 ### Frontend
 
-O frontend é responsável por:
-
-- exibir o mapa interativo;
-- exibir os bares como marcadores;
-- receber o endereço e o alcance informados pelo usuário;
-- desenhar a região de busca;
-- exibir a tabela de resultados;
-- controlar botões, camadas e interações visuais.
+Responsável por:
+- Exibir mapa interativo
+- Receber entrada do usuário (endereço e alcance)
+- Desenhar região de busca
+- Exibir tabela de resultados
+- Gerenciar interações visuais e camadas
 
 ---
 
-## Como executar localmente
+## Como Executar Localmente
 
-Além do acesso público pelo link do Render, o projeto também pode ser executado localmente.
-
-### 1. Clone o repositório
+### 1. Clone o Repositório
 
 ```bash
 git clone https://github.com/PHMGC/TP1---ALG2.git
-cd tp1
+cd TP1---ALG2
 ```
 
----
+### 2. Crie um Ambiente Virtual (Recomendado)
 
+```bash
+python -m venv venv
+source venv/bin/activate  # Linux/Mac
+# ou
+venv\Scripts\activate  # Windows
+```
 
-### 2. Instale as dependências
-
-O projeto possui um arquivo `requirements.txt` com as dependências necessárias.
-
-Execute:
+### 3. Instale as Dependências
 
 ```bash
 pip install -r requirements.txt
 ```
 
----
-
-### 5. Execute a aplicação
-
-A execução deve ser feita a partir da pasta raiz do projeto.
+### 4. Execute a Aplicação
 
 ```bash
 python -m frontend.main
 ```
 
----
+### 5. Acesse no Navegador
 
-### 6. Acesse no navegador
+Após iniciar, abra seu navegador e acesse:
 
-Após iniciar a aplicação, abra o navegador e acesse:
-
-```text
-http://127.0.0.1:8050
 ```
+http://127.0.0.1:10000
+```
+---
+
+## Configuração para Produção (Render)
+
+A aplicação é automaticamente deployada no Render quando há push para a branch `main`.
+
+O Render:
+- Detecta a presença do `requirements.txt`
+- Instala as dependências
+- Executa: `python3 -m frontend.main`
+- Lê a variável de ambiente `PORT` automaticamente (padrão: 10000)
+
+**Repositório privado no GitHub** → Código protegido
+**Aplicação pública no Render** → Interface acessível
 
 ---
 
-## Observações importantes
+## Observações Importantes
 
-- A aplicação deve ser executada a partir da raiz do projeto para que os imports entre `frontend` e `backend` funcionem corretamente.
-- O arquivo `requirements.txt` deve ser utilizado para instalar todas as dependências necessárias.
-- O sistema utiliza geocodificação por meio do OpenStreetMap/Nominatim.
+- A aplicação deve ser executada a partir da **raiz do projeto** para que os imports funcionem corretamente
+- O arquivo `requirements.txt` contém todas as dependências necessárias
+- A geocodificação depende de conexão com OpenStreetMap (Nominatim)
+- O cache de endereços (`address_search_cache.json`) evita requisições repetidas à API
+- Debug mode está desabilitado em produção
 
 ---
-
 
 ## Autores
 
 - Gustavo Luiz A. R.
-- Pedro H.
+- Pedro H. M. G. Cortez (PHMGC)
