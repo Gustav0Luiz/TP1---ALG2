@@ -1,12 +1,8 @@
 import pandas as pd
 from pandas.errors import EmptyDataError
 
-from pathlib import Path
-import sys
-sys.path.append(str(Path(__file__).parent.parent))
-
-from src.config import ADDRESS_PATH, COORDS_PATH, CSV_HEADER
-from src.osm import OSMFetcher
+from ..src.config import ADDRESS_PATH, COORDS_PATH, CSV_HEADER
+from ..src.osm import OSMFetcher
 
 def load_existing_coords():
     if COORDS_PATH.exists():
