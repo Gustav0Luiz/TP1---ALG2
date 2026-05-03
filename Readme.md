@@ -12,11 +12,15 @@ A aplicação final é um sistema interativo em Python que permite ao usuário i
 
 ## Acesso ao Projeto
 
-O projeto está disponível publicamente (código privado) no seguinte link:
+O site desse projeto está disponível publicamente no seguinte link:
 
 **[Explorador Comida di Buteco - Render](https://tp1-alg2-6f5l.onrender.com/)**
 
 ---
+
+# Documentação
+
+A documentação do trabalho está disponível no arquivo `Relatorio.pdf` nesse repositório.
 
 ## Contexto do Trabalho
 
